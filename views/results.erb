@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+  </head>
+ 
+  <body>
+    <%= erb :_form %>
+    <h3>
+      <%= add_commas(@comments.count) %> 
+      Comment<%= @comments.count == 1 ? nil : "s"  %>
+    </h3>
+    <% @comments.each do |c| %>
+      <p>
+        <% author = JSON.parse(c[:author]) %>
+        <b><%= author["name"] %></b> &nbsp;
+        <span style="color:#888;">
+          <%= author["location"] %> &bull; 
+          <%= c[:createdAt].strftime "%B%e, %Y" %>
+        </span>
+        <br>
+        <%= c[:text]  %>
+        <br>
+        <a href=<%= "#{c[:url]}>#{c[:title]}" %></a>
+      </p>
+      <hr style="border: 0; border-top: 1px solid #888;">
+    <% end %>
+
+  </body>
+</html>
