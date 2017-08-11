@@ -10,10 +10,8 @@ class App < Sinatra::Base
 
   get '/comments' do
     @search_terms = params[:search_terms]
-
-    @comments = DB[:comments].where('text LIKE ?', "%#{@search_terms}%").reverse(:createdAt)
+    @comments = DB[:comments].where('text LIKE ?', "%#{@search_terms}%").where(:maxSummaryScore => 0.4..1.0)
     @comments = add_articles(@comments)
-    
     erb :results
   end
 

@@ -22,3 +22,11 @@ An inversion index involves two tables, one that has every single word within th
 
 To scale the front-end, I would paginate the results.
 To scale for higher traffic, I would add more web server instances behind a load balancer.
+
+## Development
+
+To open the database locally: `mysql -h localhost -u root -p`
+
+## Method
+
+One challenge here was to find the right threshold between offensive and not, the right score to filter on.When I bucketed the comments based on their scores (each bucket had a range), I saw that the vast majority of the scores are less than 0.3. That probably means the scoring is not overly sensitive. I ended up filtering to display only comments with a max summary score of 0.4, which means only one in ten or twenty comments is deemed offensive and returned by the search. A better statistical way to find the right threshold might be with a logit graph for each score, and then choose a point where the graph is steepest.
